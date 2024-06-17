@@ -8,13 +8,25 @@ import "../styles/globals.css";
 const activeChain = "ethereum";
 
 function MyApp({ Component, pageProps }: AppProps) {
+const smartWalletConfig = {
+  factoryAddress: "0xbA308A4b323cAc54AC5B9dEd590A065507B642e9",
+   gasless: true,
+}
+  
   return (
-    <ThirdwebProvider
-      clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
-      activeChain={activeChain}
+    <ThirdwebProvider 
+      clientId= "9f448afbd669ef9fa8f744c35ff52fcb"
+      activeChain={activeChain} 
+    supportedWallets={[
+     embeddedWallet(),
+     smartWallet(metamaskWallet(), smartWalletConfig),
+     smartWallet(walletConnect(), smartWalletConfig), 
+     smartWallet(coinbaseWallet(), smartWalletConfig),
+     localWallet(),
+    ] }
     >
       <Component {...pageProps} />
-    </ThirdwebProvider>
+    </ThirdwebProvider>  
   );
 }
 
